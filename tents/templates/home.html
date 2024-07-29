@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Kashmir Heights</title>
+    <link rel="stylesheet" href="">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav {
+            margin-top: 0.5em;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .login {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: white;
+            background-color: #ff7e5f;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .login:hover {
+            background-color: #feb47b;
+        }
+
+        .banner {
+            position: relative;
+            margin-top: 120px;
+        }
+
+        .banner img {
+            width: 100%;
+            display: none;
+            height: 70vh;
+            object-fit: cover;
+        }
+
+        .banner img.active {
+            display: block;
+        }
+
+        .banner h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 3em;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 1em 2em;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 2em;
+        }
+
+        footer .contact-info {
+            margin: 0.5em 0;
+        }
+
+        footer p {
+            margin: 0.5em 0;
+        }
+
+        footer a {
+            color: #ff7e5f;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login {
+                top: 70px;
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The Kashmir Heights</h1>
+    <nav>
+        <a href="#">Home</a>
+        <a href="{% url 'tents' %}">Tents</a>
+        <a href="#">Sleeping Bags</a>
+        <a href="#">Camping Tools</a>
+        <a href="#">profile</a>
+    </nav>
+    {% if user.is_authenticated %}
+    
+    <a href="{% url 'logout' %}" class="login">Logout</a>
+    {% else %}
+    <a href="{% url 'login' %}" class="login">Login</a>
+    {% endif %}
+</header>
+
+<div class="banner">
+    <img src="{% static 'images/slide1.jpg' %}" alt="Adventure Image 1" class="active">
+    <img src="{% static 'images/slide2.jpg' %}" alt="Adventure Image 2">
+    <img src="{% static 'images/slide3.jpg' %}" alt="Adventure Image 3">
+    <h1>Welcome to The Kashmir Heights – Your Ultimate Camping Destination</h1>
+</div>
+
+<footer>
+    <p class="contact-info">Contact Us: 7006250826 | <a href="mailto:malikjunni67@gmail.com">malikjunni67@gmail.com</a></p>
+    <p>Location: Hassanwani Pulwama</p>
+    <p>
+        <a href="#">Social Media Links</a> | 
+        <a href="#">Privacy Policy</a> | 
+        <a href="#">Terms of Service</a>
+    </p>
+</footer>
+
+<script>
+    // JavaScript to handle image slider
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.banner img');
+    const totalImages = images.length;
+
+    function showNextImage() {
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % totalImages;
+        images[currentIndex].classList.add('active');
+    }
+
+    setInterval(showNextImage, 3000); // Change image every 3 seconds
+</script>
+
+</body>
+</html>
